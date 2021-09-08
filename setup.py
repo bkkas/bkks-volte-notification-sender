@@ -8,7 +8,7 @@ setup(
     author='Rashmi Kumari,Jesus Gazol',
     author_email='rashmi.kumari@bkk.no',
     license='Volte',
-    packages=['volte_notification_sender'],
+    packages=['bkks-volte-notification-sender'],
     install_requires=[
           'azure-servicebus',
     ],
