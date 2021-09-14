@@ -9,8 +9,5 @@ setup(
     author='bkks-volte',
     author_email='rashmi.kumari@bkk.no,',
     packages=['bkks_volte_notification_sender'],
-    install_requires=[
-          'azure-servicebus',
-    ],
     zip_safe=False
 )
