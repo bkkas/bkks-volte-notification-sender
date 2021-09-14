@@ -3,10 +3,11 @@ from setuptools import setup
 setup(
     name='bkks_volte_notification_sender',
     version='0.1',
-    description='My private package from private github repo',
+    description='A simple package to send messages to azure service bus',
+    license = "LGPL3",
     url='git@github.com:bkkas/bkks-volte-notification-sender.git',
-    author='Rashmi Kumari,Jesus Gazol',
-    author_email='rashmi.kumari@bkk.no',
+    author='bkks-volte',
+    author_email='rashmi.kumari@bkk.no,',
     license='Volte',
     packages=['bkks_volte_notification_sender'],
     install_requires=[
