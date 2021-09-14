@@ -8,7 +8,6 @@ setup(
     url='git@github.com:bkkas/bkks-volte-notification-sender.git',
     author='bkks-volte',
     author_email='rashmi.kumari@bkk.no,',
-    license='Volte',
     packages=['bkks_volte_notification_sender'],
     install_requires=[
           'azure-servicebus',
