@@ -1,11 +1,16 @@
 from dataclasses import dataclass
 from datetime import datetime
 import json
+import enum
+
+class NotificationType(enum.Enum):
+    email = 1
+    sms= 2
 
 
 @dataclass
 class NotificationDetails:
-    notification_type: str
+    notification_type: NotificationType
     subject: str
     message: str
     email_address: str = None

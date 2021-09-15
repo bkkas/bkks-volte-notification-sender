@@ -11,6 +11,7 @@ setup(
     packages=['bkks_volte_notification_sender'],
     install_requires=[
           'azure-servicebus',
+          'email-validator',
     ],
     zip_safe=False
 )
