@@ -3,9 +3,10 @@ from datetime import datetime
 import json
 import enum
 
+
 class NotificationType(enum.Enum):
     email = 1
-    sms= 2
+    sms = 2
 
 
 @dataclass
@@ -14,7 +15,7 @@ class NotificationDetails:
     subject: str
     message: str
     email_address: str = None
-    phone_no: str = None
+    contact_no: str = None
     is_delivered: bool = False
     has_attachment: bool = False
     retry_count: int = 0

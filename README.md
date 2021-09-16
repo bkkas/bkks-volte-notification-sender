@@ -2,7 +2,7 @@
 
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 
-This package helps to send data to azure service bus.
+This package helps to send data to a queue data on azure service bus.
 
 ## Installing
 
@@ -18,6 +18,11 @@ notification_details=NotificationDetails(
     subject="<notification_subject>",
     email_address="<email_address>"
 )
-sender=ServiceBusMessageSender("<connection_strin>","<queue_name>")
+
+service_bus_client = ServiceBusClient.from_connection_string(
+    conn_str=<connection_string>
+    logging_enable=<login_enabled>,
+    entity_name=<queue_name>,
+)
+sender=ServiceBusMessageSender(service_bus_client)
 message=sender.send_single_message(notification_details)
-print(message)
