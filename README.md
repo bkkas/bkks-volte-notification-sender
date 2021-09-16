@@ -20,11 +20,10 @@ notification_details=NotificationDetails(
 )
 
 service_bus_client = ServiceBusClient.from_connection_string(
-    conn_str=<connection_string>
-    logging_enable=<login_enabled>,
+    conn_str=<connection_string>,
     entity_name=<queue_name>,
 )
 sender=ServiceBusMessageSender(service_bus_client)
 respose=sender.send_single_message(notification_details)
 
-The response should be "OK" if the message has been sent to queue else we should get exception details.
+The response should be "OK" if the message has been sent to queue else we should get error details.
