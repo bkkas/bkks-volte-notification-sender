@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="bkks_volte_notification_sender",
-    version="0.2.0",
+    version="0.3.0",
     description="A simple package to send messages to a queue azure service bus",
     license="LGPL3",
     url="git@github.com:bkkas/bkks-volte-notification-sender.git",
