@@ -13,4 +13,5 @@ jobs:
         python-version: 3.9
     - name: Test with unittest
       run: |
+        pip install email_validator
         python -m unittest discover -s ./tests
