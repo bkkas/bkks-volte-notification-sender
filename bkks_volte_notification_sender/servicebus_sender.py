@@ -30,7 +30,8 @@ class ServiceBusMessageSender:
                         queue_name=self.servicebus_client._entity_name
                     )
                     with sender:
-                        message = ServiceBusMessage(request.to_json(request))
+                        json_message=request.to_json(request)
+                        message = ServiceBusMessage(json_message)
                         # send the message to the queue
                         sender.send_messages(message)
                         return "OK"
