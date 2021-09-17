@@ -27,9 +27,7 @@ class ServiceBusMessageSender:
         if is_valid:
             try:
                 with self.servicebus_client:
-                    sender = self.servicebus_client.get_queue_sender(
-                        queue_name=self.servicebus_client._entity_name
-                    )
+                    sender = self.servicebus_client.get_queue_sender(queue_name=self.servicebus_client._entity_name)
                     with sender:
                         jsonStr = json.dumps(request.__dict__)
                         message = ServiceBusMessage(jsonStr)

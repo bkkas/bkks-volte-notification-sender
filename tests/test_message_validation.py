@@ -17,17 +17,13 @@ class TestMessageValidation(unittest.TestCase):
     def test_invalid_enum_value_for_notification_type(self):
         notification_type = "invalid"
         self.assertFalse(
-            self.message_validator.notification_type_enum_validator(notification_type)[
-                0
-            ],
+            self.message_validator.notification_type_enum_validator(notification_type)[0],
         )
 
     def test_valid_enum_value_for_notification_type(self):
         notification_type = "sms"
         self.assertTrue(
-            self.message_validator.notification_type_enum_validator(notification_type)[
-                0
-            ],
+            self.message_validator.notification_type_enum_validator(notification_type)[0],
         )
 
 

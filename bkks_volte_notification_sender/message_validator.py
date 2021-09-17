@@ -1,12 +1,11 @@
 from email_validator import validate_email, EmailNotValidError
 from bkks_volte_notification_sender.notification_details import (
     NotificationType,
-
-
-
-
-
-
+    
+    
+    
+    
+    
     NotificationDetails,
 )
 
@@ -26,9 +25,7 @@ class MessageValidator:
             self.message = str(e)
         return self.is_valid, self.message
 
-    def notification_type_enum_validator(
-        self, notification_type: str
-    ) -> tuple[bool, str]:
+    def notification_type_enum_validator(self, notification_type: str) -> tuple[bool, str]:
         self.__init__()
         if not notification_type in NotificationType.__members__:
             self.is_valid = False
@@ -42,9 +39,7 @@ class MessageValidator:
             self.is_valid = False
         return self.is_valid, self.message
 
-    def notification_type_contact_details_check(
-        self, notification_type, email_address, contact_no
-    ):
+    def notification_type_contact_details_check(self, notification_type, email_address, contact_no):
         self.__init__()
         if notification_type == NotificationType.sms.name and contact_no is None:
             self.message = "Contact_no cannot be null for sms notification_type"
@@ -57,16 +52,12 @@ class MessageValidator:
     def validate(self, request: NotificationDetails) -> tuple[bool, str]:
 
         # Validate if both email_address and contact_no are not null
-        is_valid, message = self.email_and_contact_no_null_validator(
-            request.email_address, request.contact_no
-        )
+        is_valid, message = self.email_and_contact_no_null_validator(request.email_address, request.contact_no)
         if not is_valid:
             return is_valid, message
 
         # Validate notification type belongs to enum values
-        is_valid, message = self.notification_type_enum_validator(
-            request.notification_type
-        )
+        is_valid, message = self.notification_type_enum_validator(request.notification_type)
         if not is_valid:
             return is_valid, message
 
