@@ -31,7 +31,7 @@ class ServiceBusMessageSender:
                     )
                     with sender:
                         json_message=request.to_json(request)
-                        message = ServiceBusMessage(json_message)
+                        message = ServiceBusMessage("Hello")
                         # send the message to the queue
                         sender.send_messages(message)
                         return "OK"
