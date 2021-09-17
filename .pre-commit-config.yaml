@@ -15,10 +15,3 @@ repos:
     hooks:
       - id: black
         args: ['--line-length=120']
-
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.4
-    hooks:
-      - id: flake8
-        args: ['--config=setup.cfg']
-        additional_dependencies: [flake8-isort]
