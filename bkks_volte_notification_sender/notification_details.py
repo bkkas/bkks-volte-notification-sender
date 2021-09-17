@@ -1,7 +1,7 @@
+import enum
+import json
 from dataclasses import dataclass
 from datetime import datetime
-import json
-import enum
 
 
 class NotificationType(enum.Enum):

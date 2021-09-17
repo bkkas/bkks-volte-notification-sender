@@ -1,5 +1,6 @@
-from bkks_volte_notification_sender.message_validator import MessageValidator
 import unittest
+
+from bkks_volte_notification_sender.message_validator import MessageValidator
 
 
 class TestMessageValidation(unittest.TestCase):
