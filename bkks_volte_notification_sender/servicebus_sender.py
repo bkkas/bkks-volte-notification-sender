@@ -3,6 +3,7 @@ from bkks_volte_notification_sender.notification_details import (
     NotificationDetails,
 )
 from azure.servicebus import ServiceBusClient, ServiceBusMessage
+import json
 
 
 class ServiceBusMessageSender:
@@ -30,9 +31,8 @@ class ServiceBusMessageSender:
                         queue_name=self.servicebus_client._entity_name
                     )
                     with sender:
-                        json_message=request.to_json(request)
-                        encode_message=json_message.encode()
-                        message = ServiceBusMessage(encode_message)
+                        jsonStr = json.dumps(request.__dict__)
+                        message = ServiceBusMessage(jsonStr)
                         # send the message to the queue
                         sender.send_messages(message)
                         return "OK"
