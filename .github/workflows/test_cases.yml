@@ -1,0 +1,18 @@
+name: test-cases
+on: [push, pull_request]
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Test with unittest
+      run: |
+        pip install azure-servicebus
+        pip install email_validator
+        python -m unittest discover -s ./tests

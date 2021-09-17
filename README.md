@@ -8,9 +8,22 @@ This package helps to send data to a queue data on azure service bus.
 
 ```
 pip install git+https://github.com/bkkas/bkks-volte-notification-sender.git
+pip install azure.servicebus
 ```
 
 ## Use
+
+```
+
+### Imports
+
+from bkks_volte_notification_sender.servicebus_sender import NotificationDetails,ServiceBusMessageSender
+from azure.servicebus import ServiceBusClient
+```
+
+```
+
+### Add notification details
 
 notification_details=NotificationDetails(
     message="<notification_message>",
@@ -18,13 +31,27 @@ notification_details=NotificationDetails(
     subject="<notification_subject>",
     email_address="<email_address>"
 )
+```
+
+```
+
+### Create servicebus client
 
 service_bus_client = ServiceBusClient.from_connection_string(
-    conn_str=<connection_string>
-    logging_enable=<login_enabled>,
+    conn_str=<connection_string>,
     entity_name=<queue_name>,
 )
+```
+
+```
+
+### Create servicebus sender
 sender=ServiceBusMessageSender(service_bus_client)
 respose=sender.send_single_message(notification_details)
+```
 
-The response should be "OK" if the message has been sent to queue else we should get exception details.
+```
+
+### Response
+The response should be "OK" if the message has been sent to queue else we should get error details.
+```
