@@ -8,9 +8,18 @@ This package helps to send data to a queue data on azure service bus.
 
 ```
 pip install git+https://github.com/bkkas/bkks-volte-notification-sender.git
+pip install azure.servicebus
 ```
 
 ## Use
+
+```
+
+### Imports
+
+from bkks_volte_notification_sender.servicebus_sender import NotificationDetails,ServiceBusMessageSender
+from azure.servicebus import ServiceBusClient
+```
 
 ```
 
