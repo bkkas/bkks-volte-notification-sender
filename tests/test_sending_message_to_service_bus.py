@@ -1,9 +1,7 @@
 import unittest
 
-from bkks_volte_notification_sender.notification_details import \
-    NotificationDetails
-from bkks_volte_notification_sender.servicebus_sender import \
-    ServiceBusMessageSender
+from bkks_volte_notification_sender.notification_details import NotificationDetails
+from bkks_volte_notification_sender.servicebus_sender import ServiceBusMessageSender
 
 
 class ServiceBusClientMock:
