@@ -14,7 +14,8 @@ class NotificationDetails:
     notification_type: NotificationType
     subject: str
     message: str
-    email_address: str = None
+    from_email_address: str = "noreply@volte.no"
+    to_email_address: str = None
     contact_no: str = None
     is_delivered: bool = False
     has_attachment: bool = False
