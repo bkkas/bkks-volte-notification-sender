@@ -29,7 +29,8 @@ notification_details=NotificationDetails(
     message="<notification_message>",
     notification_type="<notification_type>",
     subject="<notification_subject>",
-    email_address="<email_address>"
+    email_address="<email_address>",
+    contact_no="<contact_no>"
 )
 ```
 
