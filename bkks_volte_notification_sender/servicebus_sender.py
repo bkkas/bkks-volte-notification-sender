@@ -19,9 +19,9 @@ class ServiceBusMessageSender:
             notification_type: Enum: NotificationType
             subject: str: message/notification subject
             message: str: message/notification body
-            email_address: str: recipient email adress
-            phone_no: str: recipient phone number
-        notification_type, subject, message and (email_address or phone_no) are mandatory parameters
+            from_email_address: list: list of recipient email addresses
+            contact_no: list: list of recipient contact no
+        notification_type, subject, message and (from_email_address or contact_no) are mandatory parameters
         """
         is_valid, message = self.__validate(request)
         if is_valid:

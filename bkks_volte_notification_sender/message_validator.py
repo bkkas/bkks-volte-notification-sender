@@ -8,14 +8,16 @@ class MessageValidator:
         self.is_valid = True
         self.message = "OK"
 
-    def email_validator(self, to_email_address: str) -> tuple[bool, str]:
+    def email_validator(self, to_email_addresses: list) -> tuple[bool, str]:
         self.__init__()
-        try:
-            validate_email(to_email_address)
-        except EmailNotValidError as e:
-            # email is not valid, exception message is human-readable
-            self.is_valid = False
-            self.message = str(e)
+        for to_email_address in to_email_addresses:
+            try:
+                validate_email(to_email_address)
+            except EmailNotValidError as e:
+                # email is not valid, exception message is human-readable
+                self.is_valid = False
+                self.message = str(e)
+                break
         return self.is_valid, self.message
 
     def notification_type_enum_validator(self, notification_type: str) -> tuple[bool, str]:
