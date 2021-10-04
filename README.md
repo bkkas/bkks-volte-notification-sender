@@ -34,8 +34,8 @@ notification_details=NotificationDetails(
     subject="<str_notification_subject>",
     message="<str_notification_message>",
     from_email_address="<str_from_email_address> default: noreply@volte.no",
-    to_email_address="<list_of_string_to_email_address>
-    contact_no="<list_of_string_contact_no>
+    to_email_addresses="<list_of_string_to_email_addresses>
+    contact_numbers="<list_of_string_contact_numbers>
 )
 ```
 

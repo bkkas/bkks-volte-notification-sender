@@ -47,7 +47,7 @@ class TestMessageSender(unittest.TestCase):
             message="test message",
             notification_type="email",
             subject="test message",
-            to_email_address=["test1@bkk.no", "test2@bkk.no"],
+            to_email_addresses=["test1@bkk.no", "test2@bkk.no"],
         )
 
     def get_invalid_notification_details(self) -> NotificationDetails:
@@ -55,7 +55,7 @@ class TestMessageSender(unittest.TestCase):
             message="test message",
             notification_type="email",
             subject="test message",
-            to_email_address=["test1@", "test2"],
+            to_email_addresses=["test1@", "test2"],
         )
 
 

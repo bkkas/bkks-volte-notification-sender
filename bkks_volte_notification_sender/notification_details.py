@@ -15,8 +15,8 @@ class NotificationDetails:
     subject: str
     message: str
     from_email_address: str = "noreply@volte.no"
-    to_email_address: list = None
-    contact_no: list = None
+    to_email_addresses: list = None
+    contact_numbers: list = None
     is_delivered: bool = False
     has_attachment: bool = False
     retry_count: int = 0

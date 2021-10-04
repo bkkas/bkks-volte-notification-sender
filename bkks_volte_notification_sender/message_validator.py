@@ -47,7 +47,9 @@ class MessageValidator:
     def validate(self, request: NotificationDetails) -> tuple[bool, str]:
 
         # Validate if both to_email_address and contact_no are not null
-        is_valid, message = self.email_and_contact_no_null_validator(request.to_email_address, request.contact_no)
+        is_valid, message = self.email_and_contact_no_null_validator(
+            request.to_email_addresses, request.contact_numbers
+        )
         if not is_valid:
             return is_valid, message
 
@@ -57,14 +59,14 @@ class MessageValidator:
             return is_valid, message
 
         # Validate if email is valid if sent by user
-        if request.to_email_address is not None:
-            is_valid, message = self.email_validator(request.to_email_address)
+        if request.to_email_addresses is not None:
+            is_valid, message = self.email_validator(request.to_email_addresses)
             if not is_valid:
                 return is_valid, message
 
         # Validate contact information null check for notification type
         is_valid, message = self.notification_type_contact_details_check(
-            request.notification_type, request.to_email_address, request.contact_no
+            request.notification_type, request.to_email_addresses, request.contact_numbers
         )
         if not is_valid:
             return is_valid, message
