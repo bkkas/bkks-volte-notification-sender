@@ -25,12 +25,17 @@ from azure.servicebus import ServiceBusClient
 
 ### Add notification details
 
+enum_notification_type:
+    email
+    sms
+
 notification_details=NotificationDetails(
-    message="<notification_message>",
-    notification_type="<notification_type>",
-    subject="<notification_subject>",
-    email_address="<email_address>",
-    contact_no="<contact_no>"
+    notification_type="<enum_notification_type>",
+    subject="<str_notification_subject>",
+    message="<str_notification_message>",
+    from_email_address="<str_from_email_address> default: noreply@volte.no",
+    to_email_address="<list_of_string_to_email_address>
+    contact_no="<list_of_string_contact_no>
 )
 ```
 
