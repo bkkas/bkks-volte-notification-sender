@@ -4,6 +4,7 @@ from azure.servicebus import ServiceBusClient, ServiceBusMessage
 
 from bkks_volte_notification_sender.message_validator import MessageValidator
 from bkks_volte_notification_sender.notification_details import NotificationDetails
+from typing import Tuple
 
 
 class ServiceBusMessageSender:
@@ -35,9 +36,9 @@ class ServiceBusMessageSender:
                         sender.send_messages(message)
                         return "OK"
             except Exception as ex:
-                return ex
+                return str(ex)
         else:
             return message
 
-    def __validate(self, request: NotificationDetails) -> tuple[bool, str]:
+    def __validate(self, request: NotificationDetails) -> Tuple[bool, str]:
         return self.message_validator.validate(request)
