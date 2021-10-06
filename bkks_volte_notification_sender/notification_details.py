@@ -2,7 +2,6 @@ import enum
 import json
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List
 
 
 class NotificationType(enum.Enum):
@@ -16,8 +15,8 @@ class NotificationDetails:
     subject: str
     message: str
     from_email_address: str = "noreply@volte.no"
-    to_email_addresses: List = None
-    contact_numbers: List = None
+    to_email_addresses: list = None
+    contact_numbers: list = None
     is_delivered: bool = False
     has_attachment: bool = False
     retry_count: int = 0

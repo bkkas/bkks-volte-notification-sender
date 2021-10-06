@@ -1,5 +1,4 @@
 from email_validator import EmailNotValidError, validate_email
-from typing import List
 
 from bkks_volte_notification_sender.notification_details import NotificationDetails, NotificationType
 
@@ -9,7 +8,7 @@ class MessageValidator:
         self.is_valid = True
         self.message = "OK"
 
-    def email_validator(self, to_email_addresses: List) -> tuple[bool, str]:
+    def email_validator(self, to_email_addresses) -> tuple[bool, str]:
         self.__init__()
         for to_email_address in to_email_addresses:
             try:
