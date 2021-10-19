@@ -30,7 +30,7 @@ class MessageValidator:
 
     def email_and_contact_no_null_validator(self, to_email_address, contact_no):
         self.__init__()
-        if not to_email_address and contact_no:
+        if not (to_email_address or contact_no):
             self.message = "Please provide either email or contact_no"
             self.is_valid = False
         return self.is_valid, self.message

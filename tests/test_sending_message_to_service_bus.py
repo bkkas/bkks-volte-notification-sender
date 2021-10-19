@@ -30,27 +30,41 @@ class ServiceBusSenderMock:
 
 
 class TestMessageSender(unittest.TestCase):
-    def test_sending_invalid_message_to_servicebus(self):
+    def test_sending_invalid_email_message_to_servicebus(self):
         service_bus_client_mock = ServiceBusClientMock()
         fake_service_bus_message_sender = ServiceBusMessageSender(service_bus_client_mock)
-        message = fake_service_bus_message_sender.send_single_message(self.get_invalid_notification_details())
+        message = fake_service_bus_message_sender.send_single_message(self.get_invalid_email_notification_details())
         self.assertNotEqual("OK", message)
 
-    def test_sending_valid_message_to_servicebus(self):
+    def test_sending_valid_email_message_to_servicebus(self):
         service_bus_client_mock = ServiceBusClientMock()
         fake_service_bus_message_sender = ServiceBusMessageSender(service_bus_client_mock)
-        message = fake_service_bus_message_sender.send_single_message(self.get_valid_notification_details())
+        message = fake_service_bus_message_sender.send_single_message(self.get_valid_email_notification_details())
         self.assertEqual("OK", message)
 
-    def get_valid_notification_details(self) -> NotificationDetails:
+    def test_sending_valid_sms_message_to_servicebus(self):
+        service_bus_client_mock = ServiceBusClientMock()
+        fake_service_bus_message_sender = ServiceBusMessageSender(service_bus_client_mock)
+        message = fake_service_bus_message_sender.send_single_message(self.get_valid_sms_notification_details())
+        self.assertEqual("OK", message)
+
+    def get_valid_email_notification_details(self) -> NotificationDetails:
         return NotificationDetails(
             message="test message",
             notification_type="email",
             subject="test message",
             to_email_addresses=["test1@bkk.no", "test2@bkk.no"],
         )
+    
+    def get_valid_sms_notification_details(self) -> NotificationDetails:
+        return NotificationDetails(
+            message="test message",
+            notification_type="sms",
+            subject="message_test",
+            contact_numbers=["2222","222"],
+        )
 
-    def get_invalid_notification_details(self) -> NotificationDetails:
+    def get_invalid_email_notification_details(self) -> NotificationDetails:
         return NotificationDetails(
             message="test message",
             notification_type="email",
