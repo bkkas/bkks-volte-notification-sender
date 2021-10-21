@@ -22,7 +22,7 @@ class TestMessageValidation(unittest.TestCase):
         )
 
     def test_valid_enum_value_for_notification_type(self):
-        notification_type = "sms"
+        notification_type = "SMS"
         self.assertTrue(
             self.message_validator.notification_type_enum_validator(notification_type)[0],
         )

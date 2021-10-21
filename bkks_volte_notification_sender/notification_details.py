@@ -6,8 +6,8 @@ from typing import List, Optional
 
 
 class NotificationType(enum.Enum):
-    email = 1
-    sms = 2
+    EMAIL = 1
+    SMS = 2
 
 
 @dataclass
@@ -15,9 +15,10 @@ class NotificationDetails:
     notification_type: NotificationType
     subject: str
     message: str
-    from_email_address: str = "noreply@volte.no"
+    from_email_address: str = None
     to_email_addresses: Optional[List[str]] = None
     contact_numbers: Optional[List[str]] = None
+    contact_source: str = None
     is_delivered: bool = False
     has_attachment: bool = False
     retry_count: int = 0

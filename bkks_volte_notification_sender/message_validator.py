@@ -1,7 +1,10 @@
 from email_validator import EmailNotValidError, validate_email
 from typing import Tuple, List
 
-from bkks_volte_notification_sender.notification_details import NotificationDetails, NotificationType
+from bkks_volte_notification_sender.notification_details import (
+    NotificationDetails,
+    NotificationType,
+)
 
 
 class MessageValidator:
@@ -21,7 +24,9 @@ class MessageValidator:
                 break
         return self.is_valid, self.message
 
-    def notification_type_enum_validator(self, notification_type: str) -> Tuple[bool, str]:
+    def notification_type_enum_validator(
+        self, notification_type: str
+    ) -> Tuple[bool, str]:
         self.__init__()
         if not notification_type in NotificationType.__members__:
             self.is_valid = False
@@ -35,14 +40,29 @@ class MessageValidator:
             self.is_valid = False
         return self.is_valid, self.message
 
-    def notification_type_contact_details_check(self, notification_type, to_email_address, contact_no):
+    def notification_type_contact_details_check(
+        self,
+        notification_type,
+        to_email_address,
+        contact_no,
+        from_email_address,
+        contact_source,
+    ):
         self.__init__()
-        if notification_type == NotificationType.sms.name and contact_no is None:
-            self.message = "Contact_no cannot be null for sms notification_type"
-            self.is_valid = False
-        elif notification_type == NotificationType.email.name and to_email_address is None:
-            self.message = "to_email_address cannot be null for email notification_type"
-            self.is_valid = False
+        if notification_type == NotificationType.SMS.name:
+            if contact_no is None or contact_source is None:
+                self.message = (
+                    "contact_no" if not contact_no else "contact_source"
+                ) + " can not be null"
+                self.is_valid = False
+        elif notification_type == NotificationType.EMAIL.name:
+            if to_email_address is None or from_email_address is None:
+                self.message = (
+                    "to_email_address "
+                    if not to_email_address
+                    else "from_email_address"
+                ) + " can not be null"
+                self.is_valid = False
         return self.is_valid, self.message
 
     def validate(self, request: NotificationDetails) -> Tuple[bool, str]:
@@ -55,7 +75,9 @@ class MessageValidator:
             return is_valid, message
 
         # Validate notification type belongs to enum values
-        is_valid, message = self.notification_type_enum_validator(request.notification_type)
+        is_valid, message = self.notification_type_enum_validator(
+            request.notification_type
+        )
         if not is_valid:
             return is_valid, message
 
@@ -67,7 +89,11 @@ class MessageValidator:
 
         # Validate contact information null check for notification type
         is_valid, message = self.notification_type_contact_details_check(
-            request.notification_type, request.to_email_addresses, request.contact_numbers
+            request.notification_type,
+            request.to_email_addresses,
+            request.contact_numbers,
+            request.from_email_address,
+            request.contact_source,
         )
         if not is_valid:
             return is_valid, message
