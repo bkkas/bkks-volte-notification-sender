@@ -5,6 +5,7 @@ from bkks_volte_notification_sender.notification_details import (
     NotificationDetails,
     NotificationType,
 )
+import re
 
 
 class MessageValidator:
@@ -22,6 +23,18 @@ class MessageValidator:
                 self.is_valid = False
                 self.message = str(e)
                 break
+        return self.is_valid, self.message
+    
+    def contact_no_validator(self, contact_numbers: List[str]) -> Tuple[bool, str]:
+        self.__init__()
+  
+        for contact_number in contact_numbers:
+            if not bool(re.match('^[+0-9]+$', contact_number)):
+               self.is_valid = False
+               self.message= "Invalid contact number, valid contact number should have a country code and only digits, example +4743644444"
+               break
+
+            
         return self.is_valid, self.message
 
     def notification_type_enum_validator(
@@ -90,6 +103,12 @@ class MessageValidator:
         # Validate if from_email is valid if sent by user
         if request.from_email_address is not None:
             is_valid, message = self.email_validator([request.from_email_address])
+            if not is_valid:
+                return is_valid, message
+        
+        # Validate if phone_no is valid if sent by user
+        if request.contact_numbers is not None:
+            is_valid, message = self.contact_no_validator(request.contact_numbers)
             if not is_valid:
                 return is_valid, message
 

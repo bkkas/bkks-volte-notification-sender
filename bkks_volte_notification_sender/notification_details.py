@@ -22,7 +22,7 @@ class NotificationDetails:
     is_delivered: bool = False
     has_attachment: bool = False
     retry_count: int = 0
-    event_timestamp: str = datetime.utcnow().isoformat()
+    event_timestamp: str =None
 
     def __defaultconverter(self, o):
         if isinstance(o, datetime):

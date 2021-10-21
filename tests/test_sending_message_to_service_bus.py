@@ -74,7 +74,7 @@ class TestMessageSender(unittest.TestCase):
             message="test message",
             notification_type="SMS",
             subject="message_test",
-            contact_numbers=["2222", "222"],
+            contact_numbers=["+472222", "+47222"],
             contact_source="Volte",
         )
 

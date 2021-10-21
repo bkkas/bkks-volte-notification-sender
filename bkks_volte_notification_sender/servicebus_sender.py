@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 
 from azure.servicebus import ServiceBusClient, ServiceBusMessage
@@ -29,6 +30,7 @@ class ServiceBusMessageSender:
             try:
                 with self.servicebus_client:
                     sender = self.servicebus_client.get_queue_sender(queue_name=self.servicebus_client._entity_name)
+                    request.event_timestamp= datetime.utcnow().isoformat()
                     with sender:
                         jsonStr = json.dumps(request.__dict__)
                         message = ServiceBusMessage(jsonStr)
