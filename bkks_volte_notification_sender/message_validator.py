@@ -29,9 +29,9 @@ class MessageValidator:
         self.__init__()
   
         for contact_number in contact_numbers:
-            if not bool(re.match('^[+0-9]+$', contact_number)):
+            if not bool(re.match(r'^\+\d{8,20}$', contact_number)):
                self.is_valid = False
-               self.message= "Invalid contact number, valid contact number should have a country code and only digits, example +4743644444"
+               self.message= "Invalid contact number, valid contact number should have a country code and only digits(8-20 digits), example +4743644444"
                break
 
             
