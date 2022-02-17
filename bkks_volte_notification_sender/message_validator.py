@@ -1,4 +1,4 @@
-from email_validator import EmailNotValidError, validate_email
+from flanker.addresslib import address # https://github.com/mailgun/flanker
 from typing import Tuple, List
 
 from bkks_volte_notification_sender.notification_details import (
@@ -16,12 +16,10 @@ class MessageValidator:
     def email_validator(self, to_email_addresses: List[str]) -> Tuple[bool, str]:
         self.__init__()
         for to_email_address in to_email_addresses:
-            try:
-                validate_email(to_email_address)
-            except EmailNotValidError as e:
-                # email is not valid, exception message is human-readable
+            valid_email_address=address.parse(to_email_address)
+            if not valid_email_address:
                 self.is_valid = False
-                self.message = str(e)
+                self.message = f"{to_email_address} is not a valid email address"
                 break
         return self.is_valid, self.message
     
@@ -31,7 +29,7 @@ class MessageValidator:
         for contact_number in contact_numbers:
             if not bool(re.match(r'^\+\d{8,20}$', contact_number)):
                self.is_valid = False
-               self.message= "Invalid contact number, valid contact number should have a country code and only digits(8-20 digits), example +4743644444"
+               self.message= f"{contact_number} is an invalid contact number, valid contact number should have a country code and only digits(8-20 digits), example +4743644444"
                break
 
             
