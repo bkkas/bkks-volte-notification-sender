@@ -14,5 +14,5 @@ jobs:
     - name: Test with unittest
       run: |
         pip install azure-servicebus
-        pip install email_validator
+        pip install flanker
         python -m unittest discover -s ./tests
