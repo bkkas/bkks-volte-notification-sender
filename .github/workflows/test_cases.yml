@@ -13,6 +13,5 @@ jobs:
         python-version: 3.9
     - name: Test with unittest
       run: |
-        pip install azure-servicebus
-        pip install flanker
+        pip install -r requirements.txt
         python -m unittest discover -s ./tests

@@ -7,25 +7,21 @@ This package helps to send data to a queue data on azure service bus.
 ## Installing
 
 ```
-pip install git+https://github.com/bkkas/bkks-volte-notification-sender.git
-pip install azure.servicebus
-pip install email-validator
+pip install -r requirements.txt
 ```
 
 ## Use
 
-```
-
 ### Imports
-
+```
 from bkks_volte_notification_sender.servicebus_sender import NotificationDetails,ServiceBusMessageSender
 from azure.servicebus import ServiceBusClient
 ```
 
-```
 
 ### Add notification details
 
+```
 enum_notification_type:
     EMAIL
     SMS
@@ -41,25 +37,24 @@ notification_details=NotificationDetails(
 )
 ```
 
-```
-
 ### Create servicebus client
-
+```
 service_bus_client = ServiceBusClient.from_connection_string(
     conn_str=<connection_string>,
     entity_name=<queue_name>,
 )
 ```
 
-```
-
 ### Create servicebus sender
-sender=ServiceBusMessageSender(service_bus_client)
-respose=sender.send_single_message(notification_details)
 ```
-
+sender=ServiceBusMessageSender(service_bus_client)
+response=sender.send_single_message(notification_details)
 ```
 
 ### Response
 The response should be "OK" if the message has been sent to queue else we should get error details.
+
+### Test
+```
+python -m unittest discover -s ./tests
 ```
