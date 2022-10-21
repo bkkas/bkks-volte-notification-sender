@@ -11,16 +11,23 @@ class NotificationType(enum.Enum):
 
 
 @dataclass
+class Attachment:
+    file_name: str
+    url: str
+
+@dataclass
 class NotificationDetails:
     notification_type: NotificationType
     subject: str
     message: str
     from_email_address: str = None
     to_email_addresses: Optional[List[str]] = None
+    bcc_email_addresses: Optional[List[str]] = None
     contact_numbers: Optional[List[str]] = None
     contact_source: str = None
     is_delivered: bool = False
     has_attachment: bool = False
+    attachments: Optional[List[Attachment]] = None
     retry_count: int = 0
     event_timestamp: str =None
 

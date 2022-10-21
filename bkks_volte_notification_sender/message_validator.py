@@ -2,6 +2,7 @@ from flanker.addresslib import address # https://github.com/mailgun/flanker
 from typing import Tuple, List
 
 from bkks_volte_notification_sender.notification_details import (
+    Attachment,
     NotificationDetails,
     NotificationType,
 )
@@ -31,8 +32,18 @@ class MessageValidator:
                self.is_valid = False
                self.message= f"{contact_number} is an invalid contact number, valid contact number should have a country code and only digits(8-20 digits), example +4743644444"
                break
+        return self.is_valid, self.message
 
-            
+    def attachment_validator(self, attachments: List[Attachment]):
+        self.__init__()
+
+        for attachment in attachments:
+            if not bool(re.match(r'^[\w,-]+\.\w+$', attachment.file_name)):
+                self.is_valid = False
+                self.message = f"{attachment.file_name} is an invalid attachment file name, valid file name must contain a file extension and can contain only alphanumeric characters, hyphen or underscore"
+            if not bool(re.match(r'^(https?:\/\/)?([\da-z\.-]+\.[a-z\.]{2,6}|[\d\.]+)([\/:?=&#]{1}[\da-z\.-]+)*[\/\?]?$', attachment.url)):
+                self.is_valid = False
+                self.message = f"{attachment.url} is an invalid url"
         return self.is_valid, self.message
 
     def notification_type_enum_validator(
@@ -104,9 +115,20 @@ class MessageValidator:
             if not is_valid:
                 return is_valid, message
         
+        # Validate if bcc_email is valid if sent by user
+        if request.bcc_email_addresses is not None:
+            is_valid, message = self.email_validator(request.bcc_email_addresses)
+            if not is_valid:
+                return is_valid, message
+        
         # Validate if phone_no is valid if sent by user
         if request.contact_numbers is not None:
             is_valid, message = self.contact_no_validator(request.contact_numbers)
+            if not is_valid:
+                return is_valid, message
+
+        if request.attachments:
+            is_valid, message = self.attachment_validator(request.attachments)
             if not is_valid:
                 return is_valid, message
 
