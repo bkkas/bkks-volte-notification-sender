@@ -1,3 +1,4 @@
+import dataclasses
 import enum
 import json
 from dataclasses import dataclass
@@ -30,10 +31,20 @@ class NotificationDetails:
     attachments: Optional[List[Attachment]] = None
     retry_count: int = 0
     event_timestamp: str =None
-
     def __defaultconverter(self, o):
+        
         if isinstance(o, datetime):
             return o.__str__()
 
     def to_json(self, request) -> str:
         return json.dumps(request.__dict__, default=self.__defaultconverter)
+    
+
+
+class JSONEncoder(json.JSONEncoder):
+        def default(self, o):
+            if dataclasses.is_dataclass(o):
+                return dataclasses.asdict(o)
+            if isinstance(o, datetime):
+                return o.__str__()
+            return super().default(o)
