@@ -1,12 +1,10 @@
-from flanker.addresslib import address # https://github.com/mailgun/flanker
-from typing import Tuple, List
+import re
+from typing import List, Tuple
+
+import validators
 
 from bkks_volte_notification_sender.notification_details import (
-    Attachment,
-    NotificationDetails,
-    NotificationType,
-)
-import re
+    Attachment, NotificationDetails, NotificationType)
 
 
 class MessageValidator:
@@ -17,7 +15,7 @@ class MessageValidator:
     def email_validator(self, to_email_addresses: List[str]) -> Tuple[bool, str]:
         self.__init__()
         for to_email_address in to_email_addresses:
-            valid_email_address=address.parse(to_email_address)
+            valid_email_address=validators.email(to_email_address)
             if not valid_email_address:
                 self.is_valid = False
                 self.message = f"{to_email_address} is not a valid email address"
@@ -41,7 +39,7 @@ class MessageValidator:
             if not bool(re.match(r'^[\w,-]+\.\w+$', attachment.file_name)):
                 self.is_valid = False
                 self.message = f"{attachment.file_name} is an invalid attachment file name, valid file name must contain a file extension and can contain only alphanumeric characters, hyphen or underscore"
-            if not bool(re.match(r'^(https?:\/\/)?([\w\.-]+\.[a-z\.]{2,6}|[\d\.]+)([\/:?=&#]{1}[\w\.-]+)*[\/\?]?$', attachment.url)):
+            if not validators.url(attachment.url):
                 self.is_valid = False
                 self.message = f"{attachment.url} is an invalid url"
         return self.is_valid, self.message
