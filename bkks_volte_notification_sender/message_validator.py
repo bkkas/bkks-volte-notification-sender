@@ -41,7 +41,7 @@ class MessageValidator:
             if not bool(re.match(r'^[\w,-]+\.\w+$', attachment.file_name)):
                 self.is_valid = False
                 self.message = f"{attachment.file_name} is an invalid attachment file name, valid file name must contain a file extension and can contain only alphanumeric characters, hyphen or underscore"
-            if not bool(re.match(r'^(https?:\/\/)?([\da-z\.-]+\.[a-z\.]{2,6}|[\d\.]+)([\/:?=&#]{1}[\da-z\.-]+)*[\/\?]?$', attachment.url)):
+            if not bool(re.match(r'^(https?:\/\/)?([\w\.-]+\.[a-z\.]{2,6}|[\d\.]+)([\/:?=&#]{1}[\w\.-]+)*[\/\?]?$', attachment.url)):
                 self.is_valid = False
                 self.message = f"{attachment.url} is an invalid url"
         return self.is_valid, self.message

@@ -48,6 +48,7 @@ class TestMessageValidation(unittest.TestCase):
             Attachment(file_name="filename.ext", url="https://bla.no"),
             Attachment(file_name="filename.ext", url="bla.no"),
             Attachment(file_name="filename-09_abcd.ext", url="https://www.bla.no/path/05?id=123"),
+            Attachment(file_name="filename-09_abcd.ext", url="https://www.bla.no/path_to_file/05/file_name.pdf"),
         ]
         self.assertTrue(self.message_validator.attachment_validator(attachments)[0])
 
