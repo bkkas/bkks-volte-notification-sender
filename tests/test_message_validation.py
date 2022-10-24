@@ -28,29 +28,27 @@ class TestMessageValidation(unittest.TestCase):
             self.message_validator.notification_type_enum_validator(notification_type)[0],
         )
 
-    def test_invalid_attachments(self):
+    def test_attachments(self):
         attachments = [
-            Attachment(file_name="filename with-space.ext", url="https://bla.no"),
-            Attachment(file_name="filename-without-extension", url="https://bla.no"),
-            Attachment(file_name="filename.txt", url="htt://bla.no"),
-            Attachment(file_name="filename.txt", url="https:/bla.no"),
-            Attachment(file_name="filename.txt", url="https://bla"),
+            (Attachment(file_name="filename with-space.ext", url="https://bla.no"), False),
+            (Attachment(file_name="filename-without-extension", url="https://bla.no"), False),
+            (Attachment(file_name="filename.txt", url="htt://bla.no"), False),
+            (Attachment(file_name="filename.txt", url="https:/bla.no"), False),
+            (Attachment(file_name="filename.txt", url="https://bla"), False),
+            (Attachment(file_name="filename.ext", url="bla.no"), False),
+            (Attachment(file_name="filename.ext", url="http://bla.no"), True),
+            (Attachment(file_name="filename.ext", url="https://bla.no"), True),
+            (Attachment(file_name="filename-09_abcd.ext", url="https://www.bla.no/path/05?id=123"), True),
+            (Attachment(file_name="filename-09_abcd.ext", url="https://www.bla.no/path_to_file/05/file_name.pdf"), True),
         ]
-        for attachment in attachments:
-            self.assertFalse(
-                self.message_validator.attachment_validator([attachment])[0],
-                msg=f"Attachment not invalid: {attachment}"
+
+        for (attachment, expected_result) in attachments:
+            is_valid, msg = self.message_validator.attachment_validator([attachment])
+            self.assertEqual(
+                is_valid,
+                expected_result,
+                msg=msg
             )
-
-    def test_valid_attachments(self):
-        attachments = [
-            Attachment(file_name="filename.ext", url="http://bla.no"),
-            Attachment(file_name="filename.ext", url="https://bla.no"),
-            Attachment(file_name="filename.ext", url="bla.no"),
-            Attachment(file_name="filename-09_abcd.ext", url="https://www.bla.no/path/05?id=123"),
-        ]
-        self.assertTrue(self.message_validator.attachment_validator(attachments)[0])
-
 
 if __name__ == "__main__":
     unittest.main()
