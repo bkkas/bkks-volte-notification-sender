@@ -4,7 +4,7 @@ import json
 from azure.servicebus import ServiceBusClient, ServiceBusMessage
 
 from bkks_volte_notification_sender.message_validator import MessageValidator
-from bkks_volte_notification_sender.notification_details import NotificationDetails
+from bkks_volte_notification_sender.notification_details import JSONEncoder, NotificationDetails
 from typing import Tuple
 
 
@@ -32,7 +32,7 @@ class ServiceBusMessageSender:
                     sender = self.servicebus_client.get_queue_sender(queue_name=self.servicebus_client._entity_name)
                     request.event_timestamp= datetime.utcnow().isoformat()
                     with sender:
-                        jsonStr = json.dumps(request.__dict__)
+                        jsonStr = json.dumps(request,cls=JSONEncoder)
                         message = ServiceBusMessage(jsonStr)
                         # send the message to the queue
                         sender.send_messages(message)
