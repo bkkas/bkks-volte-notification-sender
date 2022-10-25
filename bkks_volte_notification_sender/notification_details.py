@@ -1,7 +1,7 @@
 import dataclasses
 import enum
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from typing import List, Optional
 
@@ -21,14 +21,14 @@ class NotificationDetails:
     notification_type: NotificationType
     subject: str
     message: str
-    from_email_address: str = None
+    from_email_address: Optional[str] = None
     to_email_addresses: Optional[List[str]] = None
-    bcc_email_addresses: Optional[List[str]] = None
+    bcc_email_addresses: List[str] = field(default_factory=list)
     contact_numbers: Optional[List[str]] = None
     contact_source: str = None
     is_delivered: bool = False
     has_attachment: bool = False
-    attachments: Optional[List[Attachment]] = None
+    attachments: List[Attachment] = field(default_factory=list)
     retry_count: int = 0
     event_timestamp: str =None
     def __defaultconverter(self, o):
