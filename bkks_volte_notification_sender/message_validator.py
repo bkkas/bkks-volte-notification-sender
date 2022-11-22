@@ -106,12 +106,6 @@ class MessageValidator:
             is_valid, message = self.email_validator(request.to_email_addresses)
             if not is_valid:
                 return is_valid, message
-
-        # Validate if from_email is valid if sent by user
-        if request.from_email_address is not None:
-            is_valid, message = self.email_validator([request.from_email_address])
-            if not is_valid:
-                return is_valid, message
         
         # Validate if bcc_email is valid if sent by user
         if request.bcc_email_addresses is not None:
