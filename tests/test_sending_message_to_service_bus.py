@@ -135,7 +135,7 @@ class TestMessageSender(unittest.TestCase):
             subject="test message",
             to_email_addresses=["test1@bkk.no", "test2@bkk.no"],
             bcc_email_addresses=["test1@bkk.no"],
-            from_email_address="noreply@volte.no"
+            from_email_address="Effektvarsling fra Volte hei@volte.no" # We want to add the text with the from email_address
         )
 
     def get_valid_sms_notification_details(self) -> NotificationDetails:
